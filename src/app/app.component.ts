@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'student';
+  opened = false;
+
+  typesOfShoes = [{
+    name: 'Create Student',
+    route: 'student/create',
+  }, {
+    name: "Student List",
+    route: 'student/list',
+  }]
 }

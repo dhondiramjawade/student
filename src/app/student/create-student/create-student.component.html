@@ -1,0 +1,114 @@
+<div class="card">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Add Student </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <form action="" [formGroup]="formGroup">
+        <div fxLayout="column wrap " class="content">
+          <div fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxFlex="30">Full Name</div>
+            <app-input
+              [required]="true"
+              fxFlex
+              [(value)]="studentData.name"
+              [lable]="'Full Name'"
+            ></app-input>
+          </div>
+          <div fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxFlex="30">Gender</div>
+            <mat-radio-group
+              formControlName="gender"
+              [(ngModel)]="studentData.gender"
+              fxFlex
+            >
+              <mat-radio-button
+                class="checkbox"
+                *ngFor="let gender of genderList"
+                [value]="gender"
+              >
+                {{ gender | titlecase }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxFlex="30">Department</div>
+            <div fxFlex>
+              <mat-form-field appearance="fill">
+                <mat-label>Choose an option</mat-label>
+                <mat-select
+                  [formControlName]="'department'"
+                  [(ngModel)]="studentData.department"
+                >
+                  <mat-option
+                    *ngFor="let item of departmentList"
+                    [value]="item"
+                  >
+                    {{ item }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxFlex="30">Subject</div>
+            <div fxFlex>
+              <mat-form-field
+                class="example-full-width"
+                [appearance]="'outline'"
+              >
+                <input
+                  type="text"
+                  placeholder="Pick one"
+                  aria-label="Number"
+                  matInput
+                  [(ngModel)]="studentData.subjects"
+                  formControlName="subjects"
+                  [matAutocomplete]="auto"
+                />
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option
+                    *ngFor="let option of filteredOptions$ | async"
+                    [value]="option"
+                  >
+                    {{ option }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxFlex="30"></div>
+            <div fxFlex>
+              <mat-checkbox
+                [formControlName]="'agree'"
+                [(ngModel)]="conditions"
+                class="checkbox"
+              >
+                Agree T&C
+              </mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <div fxFlex></div>
+      <app-button
+        *ngIf="viewMode !== 'edit'"
+        [disabled]="formGroup.invalid"
+        (onclick)="onSubmit()"
+        [value]="'Submit'"
+      >
+      </app-button>
+      <app-button
+        *ngIf="viewMode === 'edit'"
+        [disabled]="formGroup.invalid"
+        (onclick)="onUpdate()"
+        [value]="'Update'"
+      >
+      </app-button>
+    </mat-card-actions>
+  </mat-card>
+</div>

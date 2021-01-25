@@ -1,0 +1,10 @@
+<mat-form-field class="input" [appearance]="appearance">
+  <mat-label> {{ lable }}</mat-label>
+  <input
+    [formControl]="control"
+    matInput
+    [type]="type"
+    (ngModelChange)="onValueChange($event)"
+    [(ngModel)]="value"
+  />
+</mat-form-field>
